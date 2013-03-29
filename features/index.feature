@@ -5,6 +5,6 @@ Feature: Default page test
 
 Scenario: Test link to demo
     Given I am on the homepage
-    When I press "Run The Demo"
+    When I follow "Run The Demo"
     Then the response status code should be 200
     And I should be on "/demo/"

@@ -114,6 +114,8 @@ After running the command above, Behat will generate our main Feature Context an
 ```
 Now, having everything in place, we can start with our first Behat scenario.
 
+### Start testing with Behat ###
+
 Create file features/index.feature with the following code:
 
 ```
@@ -132,6 +134,54 @@ When you run it, you will see that all the steps are undefined:
 ```
 1 scenario (1 undefined)
 4 steps (4 undefined)
-0m0.016s
 ```
 It's because we're using BehatContext in our FeatureContext, while for testing websites we need a browser - Mink to the rescue.
+
+### Configure Behat to use Mink ###
+
+Add behat.yml file to your application folder with the following details:
+
+```
+default:
+    extensions:
+        Behat\MinkExtension\Extension:
+            default_session:    symfony2
+            javascript_session: ~
+            base_url:           http://bdd-behat.local
+        Behat\Symfony2Extension\Extension:
+            kernel:
+                env:     test
+                debug:   true
+            mink_driver: true
+    formatter:
+        name:       pretty
+        parameters:
+            decorated:           true
+            verbose:             false
+            time:                true
+            language:            en
+            output_path:         null
+            multiline_arguments: true
+```
+
+In place of base_url option put full url to your symfony application, i. e. http://localhost/symfony/web/app_dev.php.
+To have nicer local address, if you're using Apache as your web server, you may want to configure new virtual host.
+
+Once behat configuration is in place, try running bin/behat again, this time you should get:
+
+```
+Button with id|name|title|alt|value "Run The Demo" not found.
+
+1 scenario (1 failed)
+4 steps (1 passed, 2 skipped, 1 failed)
+```
+
+My bad, "Run The Demo" is not a button, it's a link. All you need to do is to change "press" to "follow" in your index.feature and run behat again.
+
+```
+1 scenario (1 passed)
+4 steps (4 passed)
+```
+
+We already have a proper BDD environment with PHPUnit, Behat and Mink configured, but we still can't test javascript on our pages.
+That's why we also need Selenium.
