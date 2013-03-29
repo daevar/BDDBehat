@@ -32,6 +32,8 @@ sudo setfacl -dR -m u:www-data:rwx -m u:`whoami`:rwx app/cache app/logs
 
 ### Update .gitignore file ###
 
+We want to exclude files and folders that won't be modified by us.
+
 ```
 # Bootstrap
 app/bootstrap*
@@ -50,4 +52,25 @@ app/config/parameters.yml
 # Composer
 composer.phar
 composer.lock
+```
+
+### Install PHPUnit ###
+
+At this point we're ready to run first tests. Let's start with installation of PHPUnit. You can check if you already have PHPUnit installed by running:
+
+```
+phpunit --version
+```
+If PHPUnit is already installed, you should see information about version:
+```
+PHPUnit 3.6.10 by Sebastian Bergmann.
+```
+Otherwise, use the command below to install it:
+```
+sudo apt-get install phpunit
+```
+And we're ready to run first Unit test, written for default Symfony controller:
+
+```
+phpunit -c app
 ```
