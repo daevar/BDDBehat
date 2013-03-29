@@ -96,3 +96,20 @@ And run composer with update option:
 ```
 php composer.phar update
 ```
+
+### Initialise Behat ###
+
+We're ready to start playing with Behat.
+
+First, initialisation:
+
+```
+bin/behat --init
+```
+After running the command above, Behat will generate our main Feature Context base folder structure:
+```
++d features - place your *.feature files here
++d features/bootstrap - place bootstrap scripts and static files here
++f features/bootstrap/FeatureContext.php - place your feature related code here
+```
+Now, having everything in place, we can start with our first Behat scenario.
