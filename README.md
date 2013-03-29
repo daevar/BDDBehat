@@ -106,10 +106,32 @@ First, initialisation:
 ```
 bin/behat --init
 ```
-After running the command above, Behat will generate our main Feature Context base folder structure:
+After running the command above, Behat will generate our main Feature Context and base folder structure:
 ```
 +d features - place your *.feature files here
 +d features/bootstrap - place bootstrap scripts and static files here
 +f features/bootstrap/FeatureContext.php - place your feature related code here
 ```
 Now, having everything in place, we can start with our first Behat scenario.
+
+Create file features/index.feature with the following code:
+
+```
+Feature: Default page test
+    In order to test with Behat
+    As a web developer
+    I need to create and run tests
+
+Scenario: Test link to demo
+    Given I am on the homepage
+    When I press "Run The Demo"
+    Then the response status code should be 200
+    And I should be on "/demo/"
+```
+When you run it, you will see that all the steps are undefined:
+```
+1 scenario (1 undefined)
+4 steps (4 undefined)
+0m0.016s
+```
+It's because we're using BehatContext in our FeatureContext, while for testing websites we need a browser - Mink to the rescue.
