@@ -74,3 +74,25 @@ And we're ready to run first Unit test, written for default Symfony controller:
 ```
 phpunit -c app
 ```
+
+### Install Behat, Mink, Selenium 2 and Symfony 2 extensions ###
+
+Simply modify your composer.json file to add new packages (doctrine data fixtures and fixture bundle are optional):
+```
+"require": {
+    ...,
+    "doctrine/data-fixtures": "dev-master",
+    "doctrine/doctrine-fixtures-bundle": "dev-master",
+    ...,
+    "behat/behat": "2.4.*@stable",
+    "behat/mink-extension": "*",
+    "behat/mink-goutte-driver": "*",
+    "behat/mink-selenium2-driver": "*",
+    "behat/mink-browserkit-driver":  "*",
+    "behat/symfony2-extension": "*",
+},
+```
+And run composer with update option:
+```
+php composer.phar update
+```
