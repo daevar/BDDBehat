@@ -3,6 +3,7 @@ Feature: Default page test
     As a web developer
     I need to create and run tests
 
+@javascript
 Scenario: Test link to demo
     Given I am on the homepage
     When I follow "Run The Demo"

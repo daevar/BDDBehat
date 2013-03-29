@@ -185,3 +185,56 @@ My bad, "Run The Demo" is not a button, it's a link. All you need to do is to ch
 
 We already have a proper BDD environment with PHPUnit, Behat and Mink configured, but we still can't test javascript on our pages.
 That's why we also need Selenium.
+
+### Add Selenium to Behat and Mink ###
+
+You can download the latest Selenium release from this link - http://code.google.com/p/selenium/downloads/list.
+What you're looking for is a latest version of standalone selenium server, i. e. selenium-server-standalone-2.31.0.jar.
+
+Make the downloaded file executable
+```
+chmod 777 selenium-server-standalone-2.31.0.jar
+```
+
+Now you can start a hub:
+```
+java -jar selenium-server-standalone-2.31.0.jar -role hub
+```
+
+And also a selenium node, configured as firefox browser:
+```
+java -jar selenium-server-standalone-2.31.0.jar -role node -hub http://localhost:4444/grid/register -browser browserName=firefox,version=12,maxInstances=5,platform=LINUX
+```
+
+If everything is working correctly, your selenium is ready for tests, and you should be able to see all active sessions here - http://localhost:4444/grid/console.
+
+By default, Behat will try to run all tests tagged with @javascript with whatever is configured as javascript_session in behat.yml.
+
+Then it's time to modify the config:
+```
+default:
+    extensions:
+        Behat\MinkExtension\Extension:
+            default_session:    symfony2
+            javascript_session: selenium2
+            base_url:           http://bdd-behat.local
+            browser_name:       'firefox'
+            selenium2:
+                capabilities: { browserName: 'firefox', version: '12', platform: 'ANY', javascriptEnabled: true }
+        Behat\Symfony2Extension\Extension:
+            kernel:
+                env:     behat
+                debug:   true
+            mink_driver: true
+    formatter:
+        name:       pretty
+        parameters:
+            decorated:           true
+            verbose:             false
+            time:                true
+            language:            en
+            output_path:         null
+            multiline_arguments: true
+```
+
+Please note that the browser and version in Behat config must be the same as the one we're running on Selenium, otherwise it won't work.

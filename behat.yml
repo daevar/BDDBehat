@@ -2,8 +2,11 @@ default:
     extensions:
         Behat\MinkExtension\Extension:
             default_session:    symfony2
-            javascript_session: ~
+            javascript_session: selenium2
             base_url:           http://bdd-behat.local
+            browser_name:       'firefox'
+            selenium2:
+                capabilities: { browserName: 'firefox', version: '12', platform: 'ANY', javascriptEnabled: true }
         Behat\Symfony2Extension\Extension:
             kernel:
                 env:     test
