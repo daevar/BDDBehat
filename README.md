@@ -247,4 +247,4 @@ Status code is not supported by Behat\Mink\Driver\Selenium2Driver
 4 steps (2 passed, 1 skipped, 1 failed)
 ```
 
-
+Sadly, we can't test response code with Selenium; once we comment out this line tests will be working again.
