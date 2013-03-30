@@ -238,3 +238,13 @@ default:
 ```
 
 Please note that the browser and version in Behat config must be the same as the one we're running on Selenium, otherwise it won't work.
+
+When you run bin/behat again, the result should be similar to this:
+```
+Status code is not supported by Behat\Mink\Driver\Selenium2Driver
+
+1 scenario (1 failed)
+4 steps (2 passed, 1 skipped, 1 failed)
+```
+
+
